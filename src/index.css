@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 95.3%;
+    --foreground: 222 43% 17%;
+    --card: 0 0% 98%;
+    --card-foreground: 222 43% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 43% 17%;
+    --primary: 222 43% 17%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 95.3%;
+    --secondary-foreground: 222 43% 17%;
+    --muted: 0 0% 89.8%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 197 99% 37%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 64%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 197 99% 37%;
+    --radius: 0.625rem;
+  }
+
+  html {
+    font-size: 62.5%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-grey-bg text-navy font-body;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background-color: #018ABF;
+    color: #FFFFFF;
+  }
+
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #111E46;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #018ABF;
+  }
+}
+
+@layer components {
+  .container-immopro {
+    @apply max-w-container mx-auto px-content;
+  }
+
+  .text-link {
+    background-image: linear-gradient(#018ABF, #018ABF);
+    background-size: 0% 1px;
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .text-link:hover {
+    background-size: 100% 1px;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 text-body uppercase font-medium tracking-wide;
+    @apply border border-navy bg-white text-navy rounded-[20px];
+    transition: all 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+
+  .btn-primary:hover {
+    @apply bg-navy text-white;
+  }
+
+  .btn-cyan {
+    @apply inline-flex items-center justify-center px-10 py-4 text-body-lg uppercase font-medium tracking-wide;
+    @apply bg-white text-cyan rounded-[20px];
+    transition: all 0.5s ease;
+  }
+
+  .btn-cyan:hover {
+    @apply bg-navy text-white;
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 1.4s ease, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-on-scroll.is-visible-delay-1 {
+    transition-delay: 0.15s;
+  }
+
+  .animate-on-scroll.is-visible-delay-2 {
+    transition-delay: 0.3s;
+  }
+
+  .animate-on-scroll.is-visible-delay-3 {
+    transition-delay: 0.45s;
+  }
+}
