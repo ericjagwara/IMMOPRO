@@ -7,9 +7,13 @@ import EnquiryModal from './components/EnquiryModal'
 import HomePage from './pages/HomePage'
 import OurStoryPage from './pages/OurStoryPage'
 import ServicesPage from './pages/ServicesPage'
+import ServiceDetailPage from './pages/ServiceDetailPage'
 import ProjectsPage from './pages/ProjectsPage'
 import HousePlansPage from './pages/HousePlansPage'
+import HousePlanDetailPage from './pages/HousePlanDetailPage'
 import ContactPage from './pages/ContactPage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsOfServicePage from './pages/TermsOfServicePage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -61,9 +65,13 @@ function App() {
         <Route path="/" element={<HomePage onEnquire={() => setModalOpen(true)} />} />
         <Route path="/our-story" element={<OurStoryPage />} />
         <Route path="/services" element={<ServicesPage onEnquire={() => setModalOpen(true)} />} />
+        <Route path="/services/:id" element={<ServiceDetailPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/house-plans" element={<HousePlansPage onEnquire={() => setModalOpen(true)} />} />
+        <Route path="/house-plans/:id" element={<HousePlanDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-of-service" element={<TermsOfServicePage />} />
       </Routes>
       <Footer />
     </div>

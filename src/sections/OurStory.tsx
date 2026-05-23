@@ -124,7 +124,7 @@ export default function OurStory() {
             </div>
 
             <a
-              href="/#story"
+              href="#/our-story"
               className="story-animate inline-flex items-center gap-3 bg-navy text-white px-8 py-4 rounded-[20px] text-body uppercase font-medium tracking-wider hover:bg-cyan transition-all duration-500 group"
             >
               Discover Our Story

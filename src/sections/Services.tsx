@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, HardHat, Home, PenTool, ClipboardList, ArrowRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -8,46 +9,47 @@ gsap.registerPlugin(ScrollTrigger)
 
 const services = [
   {
+    id: 'land-acquisition',
     icon: MapPin,
     title: 'Land Acquisition',
     description: 'We identify, verify, and secure prime land parcels with proper documentation and due diligence, ensuring your investment is protected from day one.',
-    features: ['Land Survey', 'Title Verification', 'Due Diligence', 'Negotiation'],
   },
   {
+    id: 'construction',
     icon: HardHat,
     title: 'Construction',
     description: 'From foundation to finish, our expert team manages every phase of construction with precision, quality materials, and transparent progress reporting.',
-    features: ['Project Management', 'Quality Control', 'Timeline Tracking', 'Handover'],
   },
   {
+    id: 'renovation',
     icon: Home,
     title: 'Renovation',
     description: 'Transform existing properties into modern, functional spaces that meet contemporary standards and maximize value.',
-    features: ['Design Upgrade', 'Structural Work', 'Modern Finishes', 'Value Addition'],
   },
   {
+    id: 'property-management',
     icon: PenTool,
     title: 'Property Management',
     description: 'Comprehensive management services to protect your investment, handle tenant relations, and ensure optimal returns.',
-    features: ['Tenant Screening', 'Rent Collection', 'Maintenance', 'Reporting'],
   },
   {
+    id: 'project-planning',
     icon: ClipboardList,
     title: 'Project Planning',
     description: 'Expert guidance from concept to completion, helping you define your dream project and create a realistic roadmap.',
-    features: ['Feasibility Study', 'Budget Planning', 'Design Consultation', 'Permits'],
   },
   {
+    id: 'flexible-payments',
     icon: MapPin,
     title: 'Flexible Payments',
     description: 'Custom payment plans designed around your earning cycle, making homeownership accessible without needing a fortune upfront.',
-    features: ['Custom Plans', 'Milestone Payments', 'Diaspora Friendly', 'No Hidden Costs'],
   },
 ]
 
 export default function Services() {
   const headerRef = useScrollAnimation(0.1)
   const cardsRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!cardsRef.current) return
@@ -118,19 +120,10 @@ export default function Services() {
                 {service.description}
               </p>
 
-              {/* Feature tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {service.features.map((feature, j) => (
-                  <span
-                    key={j}
-                    className="text-body-sm text-cyan/80 bg-cyan/10 px-3 py-1 rounded-full"
-                  >
-                    {feature}
-                  </span>
-                ))}
-              </div>
-
-              <button className="flex items-center gap-2 text-cyan text-body-sm font-medium group/btn">
+              <button
+                onClick={() => navigate(`/services/${service.id}`)}
+                className="flex items-center gap-2 text-cyan text-body-sm font-medium group/btn"
+              >
                 <span className="relative">
                   Learn More
                   <span className="absolute bottom-0 left-0 w-full h-[1px] bg-cyan origin-left scale-x-100 group-hover/btn:scale-x-0 transition-transform duration-500" />

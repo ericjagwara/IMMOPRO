@@ -11,7 +11,10 @@ const navLinks = [
   { label: 'Contact', path: '/contact' },
 ]
 
-const quickLinks = ['Privacy Policy', 'Terms of Service']
+const quickLinks = [
+  { label: 'Privacy Policy', path: '/privacy-policy' },
+  { label: 'Terms of Service', path: '/terms-of-service' },
+]
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null)
@@ -85,9 +88,14 @@ export default function Footer() {
           <div>
             <h6 className="text-h6 uppercase text-grey-medium mb-4">Quick Links</h6>
             {quickLinks.map((link) => (
-              <a key={link} href="#" className="block text-body text-grey-medium hover:text-white transition-colors duration-300">
-                {link}
-              </a>
+              <Link
+                key={link.label}
+                to={link.path}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="block text-body text-grey-medium hover:text-white transition-colors duration-300"
+              >
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>

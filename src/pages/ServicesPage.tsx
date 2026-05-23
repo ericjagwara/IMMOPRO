@@ -1,55 +1,14 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, HardHat, Home, PenTool, ClipboardList, Banknote, ArrowRight, CheckCircle } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import PageHero from '../components/PageHero'
+import { services } from '../data/services'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const services = [
-  {
-    icon: MapPin,
-    title: 'Land Acquisition',
-    shortDesc: 'Secure prime land with proper documentation and due diligence.',
-    fullDesc: 'We identify, verify, and secure prime land parcels with proper documentation and due diligence. Our team handles land surveys, title verification, negotiation, and transfer processes to ensure your investment is protected from day one.',
-    features: ['Land Survey & Mapping', 'Title Verification', 'Due Diligence', 'Price Negotiation', 'Legal Documentation', 'Transfer Assistance'],
-  },
-  {
-    icon: HardHat,
-    title: 'Construction',
-    shortDesc: 'End-to-end construction management from foundation to finish.',
-    fullDesc: 'From foundation to finish, our expert team manages every phase of construction with precision. We use quality materials, skilled labor, and transparent progress reporting to deliver homes that exceed expectations.',
-    features: ['Project Management', 'Architectural Design', 'Quality Control', 'Timeline Tracking', 'Material Sourcing', 'Final Handover'],
-  },
-  {
-    icon: Home,
-    title: 'Renovation',
-    shortDesc: 'Transform existing properties into modern, functional spaces.',
-    fullDesc: 'Transform existing properties into modern, functional spaces that meet contemporary standards. Whether it is a partial upgrade or a complete overhaul, we breathe new life into properties while maximizing value.',
-    features: ['Design Upgrade', 'Structural Work', 'Modern Finishes', 'Value Addition', 'Space Optimization', 'Project Supervision'],
-  },
-  {
-    icon: PenTool,
-    title: 'Property Management',
-    shortDesc: 'Comprehensive management to protect and grow your investment.',
-    fullDesc: 'Comprehensive management services to protect your investment and ensure optimal returns. We handle tenant relations, maintenance, rent collection, and financial reporting so you can enjoy passive income.',
-    features: ['Tenant Screening', 'Rent Collection', 'Maintenance & Repairs', 'Financial Reporting', 'Legal Compliance', 'Property Marketing'],
-  },
-  {
-    icon: ClipboardList,
-    title: 'Project Planning',
-    shortDesc: 'Expert guidance from concept to completion.',
-    fullDesc: 'Expert guidance from concept to completion, helping you define your dream project and create a realistic roadmap. Our planning services include feasibility studies, budget planning, and permit acquisition.',
-    features: ['Feasibility Study', 'Budget Planning', 'Design Consultation', 'Permit Acquisition', 'Timeline Development', 'Risk Assessment'],
-  },
-  {
-    icon: Banknote,
-    title: 'Flexible Payments',
-    shortDesc: 'Payment plans designed around your earning cycle.',
-    fullDesc: 'Custom payment plans designed around your earning cycle, making homeownership accessible without needing a fortune upfront. We work with you to create a plan that fits your budget and timeline.',
-    features: ['Custom Payment Plans', 'Milestone-Based Payments', 'Diaspora-Friendly Options', 'No Hidden Costs', 'Financial Counseling', 'Flexible Terms'],
-  },
-]
+const serviceIcons = [MapPin, HardHat, Home, PenTool, ClipboardList, Banknote]
 
 const processSteps = [
   { step: '01', title: 'Consultation', desc: 'We discuss your vision, budget, and timeline to understand your needs.' },
@@ -64,15 +23,16 @@ interface ServicesPageProps {
 
 export default function ServicesPage({ onEnquire }: ServicesPageProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!sectionRef.current) return
     const ctx = gsap.context(() => {
-      const els = sectionRef.current?.querySelectorAll('.service-animate')
-      els?.forEach((el, i) => {
-        gsap.fromTo(el, { y: 60, opacity: 0 }, {
-          y: 0, opacity: 1, duration: 0.8, delay: i * 0.1, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+      const cards = sectionRef.current?.querySelectorAll('.service-animate')
+      cards?.forEach((card, i) => {
+        gsap.fromTo(card, { y: 80, opacity: 0 }, {
+          opacity: 1, y: 0, duration: 0.8, delay: i * 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: card, start: 'top 85%', toggleActions: 'play none none none' }
         })
       })
     }, sectionRef)
@@ -92,38 +52,32 @@ export default function ServicesPage({ onEnquire }: ServicesPageProps) {
       <section className="py-section bg-white">
         <div className="container-immopro">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className="service-animate group bg-grey-offwhite rounded-[2rem] p-8 lg:p-10 hover:bg-navy transition-all duration-500"
-                style={{ opacity: 0 }}
-              >
-                <div className="flex items-start gap-6">
-                  <service.icon
-                    size={40}
-                    className="text-cyan flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div>
-                    <h4 className="text-h4 text-navy uppercase font-display mb-3 group-hover:text-white transition-colors duration-300">
-                      {service.title}
-                    </h4>
-                    <p className="text-body text-grey-dark mb-4 group-hover:text-white/70 transition-colors duration-300">
-                      {service.fullDesc}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {service.features.map((feature, j) => (
-                        <span
-                          key={j}
-                          className="text-body-sm text-cyan bg-cyan/10 group-hover:bg-cyan/20 px-3 py-1 rounded-full transition-colors duration-300"
-                        >
-                          {feature}
-                        </span>
-                      ))}
+            {services.map((service, i) => {
+              const ServiceIcon = serviceIcons[i]
+              return (
+                <div
+                  key={service.id}
+                  className="service-animate group bg-grey-offwhite rounded-[2rem] p-8 lg:p-10 hover:bg-navy transition-all duration-500 cursor-pointer"
+                  style={{ opacity: 0 }}
+                  onClick={() => navigate(`/services/${service.id}`)}
+                >
+                  <div className="flex items-start gap-6">
+                    <ServiceIcon
+                      size={40}
+                      className="text-cyan flex-shrink-0 group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div>
+                      <h4 className="text-h4 text-navy uppercase font-display mb-3 group-hover:text-white transition-colors duration-300">
+                        {service.title}
+                      </h4>
+                      <p className="text-body text-grey-dark group-hover:text-white/70 transition-colors duration-300">
+                        {service.shortDesc}
+                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

@@ -16,6 +16,8 @@ const navLinks = [
   { label: 'Contact', path: '/contact' },
 ]
 
+
+
 export default function MenuOverlay({ isOpen, onClose }: MenuOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const linksRef = useRef<HTMLDivElement>(null)
